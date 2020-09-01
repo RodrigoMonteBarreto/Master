@@ -1,36 +1,62 @@
 import React from 'react'
 
 import whatsapIcon from '../../assests/images/icons/whatsapp.svg'
+import api from '../../services/api'
 
 import './styles.css'
 
-function TeacherItem(){
+export interface Teacher{
+
+        id: number;
+        avatar: string;
+        bio: string;
+        cost: number;
+        name: string;
+        subject: string;
+        whatsapp: string;
+
+}
+
+interface TeacherItemProps{
+    teacher: Teacher; 
+}
+
+
+const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) =>{
+
+    function createNewConnection(){
+        api.post('connections', {
+            user_id: teacher.id,
+        })
+    }
 
     return(
         <article className="teacher-item">
         <header>
-            <img src="https://media-exp1.licdn.com/dms/image/C4D03AQH8ApFDr-jo9g/profile-displayphoto-shrink_200_200/0?e=1602720000&v=beta&t=-hkgvXgHYw6xVQ8alrIW1JD1dO6nRojsaqKWEVhrvVg" alt="Rodrigo Monte"/>
+            <img src={teacher.avatar} alt={teacher.name}/>
             <div>
-                <strong> Rodrigo Monte </strong>
-                <span>Química</span>
+                <strong> {teacher.name} </strong>
+                <span>{teacher.subject}</span>
             </div>
         </header>
 
         <p>
-            Entusiata das melhores tecnologias de química avançada.
-            <br/> <br/>
-            Apaxionado por explodir laboratios
+           {teacher.bio}
         </p>
 
         <footer>
             <p>
                 Preço/hora
-                <strong>R$ 500,00</strong>
+                <strong>R$ {teacher.cost}</strong>
             </p>
-            <button type="button">
-                <img src={whatsapIcon} alt="Whatsapp"/>
+            <a target="_blanck"
+             onClick={createNewConnection} 
+             href={`https://wa.me/${teacher.whatsapp}`}
+             >
+             
+             <img src={whatsapIcon} alt="Whatsapp"/>
                 Entrar em contato
-            </button>
+            </a>
         </footer>
     </article>
     );
