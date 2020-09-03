@@ -91,7 +91,7 @@
 }
 
 .teacher-item footer p strong{
-    color: var(--color=primary);
+    color: var(--color-primary);
     font-size: 1.6rem;
     display: block;
 }
@@ -133,6 +133,7 @@
         margin-top: 0;
     }
 
+   
     #page-teacher-list main{
         padding: 3.2rem 0;
         max-width: 740px;
